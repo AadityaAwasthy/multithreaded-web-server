@@ -5,7 +5,7 @@ fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").expect("The server could not bind to the specified address");
     let pool = ThreadPool::new(4);
 
-    for stream in listener.incoming() {
+    for stream in listener.incoming().take(2) {
         let stream = stream.expect("Error while opening a connection");
 
         pool.execute(|| {
